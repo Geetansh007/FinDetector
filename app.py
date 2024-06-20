@@ -1,21 +1,17 @@
-import camelot
-from reportlab.lib import colors
-from reportlab.lib.pagesizes import letter
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle,Spacer
-from reportlab.pdfgen import canvas
-import pandas as pd
-import os
+from flask import Flask, request
+from functions import save_uploaded_files, process_uploaded_pdfs
 
-path = "ScopeTaggingDocXBRL_03042018.pdf"
+app = Flask(__name__)
 
-tables = camelot.read_pdf(path, pages='9-18')
+@app.route('/upload', methods=['POST'])
+def upload():
+    try:
+        if request.method == "POST":
+            path = save_uploaded_files(request)
+            process_uploaded_pdfs(path, 'output_path')
+            return "Files processed successfully", 200
+    except Exception as e:
+        return str(e), 500
 
-all_tables = [table.df for table in tables]
-
-combined_df = pd.concat(all_tables, ignore_index=True)
-
-
-
-concatenated_rows = combined_df.applymap(lambda x: ''.join(x.splitlines()) if isinstance(x, str) else x)
-
-
+if __name__ == "__main__":
+    app.run(debug=True, port=5000)

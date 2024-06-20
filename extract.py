@@ -625,7 +625,5 @@ class PDFExtractor:
 
 
 if __name__ == "__main__":
-    file_path = '/Users/geetanshjoshi/Desktop/Findata/pdf/TATA 3.pdf'
-    output_dir = "extracted_tables_2"
-    extractor = PDFExtractor(file_path, output_dir)
+    extractor = PDFExtractor(file_path="", output_dir="")
     extractor.extract_all_tables()
