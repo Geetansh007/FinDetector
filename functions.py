@@ -38,7 +38,7 @@ def save_uploaded_files(request, upload_folder='uploads'):
     
 def process_uploaded_pdfs(upload_folder, output_base_folder):
     os.makedirs(output_base_folder, exist_ok=True)
-    
+
     for filename in os.listdir(upload_folder):
         if filename.endswith('.pdf'):
             file_path = os.path.join(upload_folder, filename)
@@ -46,3 +46,26 @@ def process_uploaded_pdfs(upload_folder, output_base_folder):
             os.makedirs(output_dir, exist_ok=True)
             extractor = PDFExtractor(file_path, output_dir)
             extractor.extract_all_tables()
+
+    return output_base_folder
+
+
+import os
+
+def load_pdf_excel(output_base_path):
+    try:
+        directories = [d for d in os.listdir(output_base_path) if os.path.isdir(os.path.join(output_base_path, d))]
+        
+        for folder in directories:
+            folder_path = os.path.join(output_base_path, folder)
+            print(f"Loading files from folder: {folder_path}")
+            
+            files = os.listdir(folder_path)
+            
+            for file in files:
+                if file.lower().endswith('.xlsx'):
+                    file_path = os.path.join(folder_path, file)
+                    print(f"Processing Excel file: {file_path}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
