@@ -5,10 +5,12 @@ import pandas as pd
 import os
 from xlsxwriter import Workbook
 
+
 class PDFExtractor:
     def __init__(self, file_path, output_dir):
         self.file_path = file_path
         self.output_dir = output_dir
+        self.reader = PyPDF2.PdfReader(file_path)
         self.names = ['[110000] Balance sheet','[210000] Statement of profit and loss','[320000] Cash flow statement, indirect',
                       '[400100] Notes - Equity share capital','[400600] Notes - Property, plant and equipment',
                       '[400700] Notes - Investment property','[400900] Notes - Other intangible assets',
@@ -31,7 +33,37 @@ class PDFExtractor:
                       "[700700] Disclosures - Secretarial audit report"]
 
 
+    def extract_company_name(self):
+        first_page = self.reader.pages[0]
+        text = first_page.extract_text()
+        lines = text.split('\n')
+        for line in lines:
+            if line.strip():
+                company_name = line.strip()
+                return company_name
+        return None
 
+    def extract_monetary_unit(self):
+        pattern = re.compile(r"Unless otherwise specified, all monetary values are in ([\w\s]+) of INR")
+        unit_mapping = {
+            'Millions': 1000000,
+            'Lakhs': 100000,
+            'Thousands': 1000,
+            'Crores': 10000000,
+            'Billions': 1000000000
+        }
+
+        for page_num in range(6):
+            if page_num >= len(self.reader.pages):
+                break
+            page = self.reader.pages[page_num]
+            text = page.extract_text()
+            match = pattern.search(text)
+            if match:
+                unit = match.group(1).strip()
+                return unit_mapping.get(unit, 1)
+        
+        return 1
     def shorten_sheet_name(self, name):
         return ''.join(e for e in name if e.isalnum())[:31]
 
@@ -127,6 +159,8 @@ class PDFExtractor:
                 all_data.columns = all_data.iloc[0]  
                 all_data = all_data[1:]  
                 all_data = all_data[all_data.iloc[:, 0].isin(balance_sheet)] 
+                check_columns_1 = ['Trade receivables, current','Trade payables, current']
+                all_data = all_data[all_data.iloc[:,0].isin(check_columns_1)]
 
             elif name == '[210000] Statement of profit and loss':
                 Profit_and_Loss = ["Revenue from operations","Other income","Total income","Cost of materials consumed",
@@ -215,12 +249,23 @@ class PDFExtractor:
                                     "Interest accrued on public deposits","Interest accrued others","Unpaid dividends",
                                     "Total application money received for allotment of securities and due for refund and interest accrued thereon",
                                     "Unpaid matured deposits and interest accrued thereon","Unpaid matured debentures and interest accrued thereon","Debentures claimed but not paid",
-                                    "Public deposit payable, current","Current liabilities portion of share application money pending allotment"]
+                                    "Public deposit payable, current","Current liabilities portion of share application money pending allotment","Other current financial liabilities,others",'Other current financial liabilities, others',"Other current assets, others","Other current financial assets others","Inventories"]
                 all_data.columns = all_data.iloc[0] 
                 all_data = all_data[1:]  
                 
                 
                 all_data.iloc[:, 0] = all_data.iloc[:, 0].apply(lambda x: x.replace('\n', ' ') if isinstance(x, str) and '\n' in x else x)
+                
+
+                labels_to_check = ["Other current assets, others", "Other current financial assets others", "Other current financial liabilities, others"]
+                if all_data.iloc[:, 0].duplicated().any():
+                    duplicated_labels = all_data.iloc[:, 0][all_data.iloc[:, 0].duplicated(keep=False)]
+                    for label in labels_to_check:
+                        if duplicated_labels.str.contains(label).sum() > 1:
+                            unique_counter = 1
+                            for idx in duplicated_labels[duplicated_labels == label].index:
+                                all_data.iloc[idx, 0] = f"{label} {unique_counter}"
+                                unique_counter += 1
                 
                 all_data = all_data[all_data.iloc[:, 0].isin(Subclassification)]
             
@@ -255,7 +300,7 @@ class PDFExtractor:
                                             'Consumption of stores and spare parts','Power and fuel','Rent','Repairs to building',
                                             'Repairs to machinery','Insurance','Total rates and taxes excluding taxes on income','Directors sitting fees',
                                             'Loss on disposal of intangible Assets','Loss on disposal, discard, demolishment and destruction of depreciable property plant and equipment',
-                                            'Total payments to auditor','CSR expenditure','Miscellaneous expenses']
+                                            'Total payments to auditor','CSR expenditure','Miscellaneous expenses','Total other non-operating income']
                 all_data.columns = all_data.iloc[0] 
                 all_data = all_data[1:]  
                 
@@ -263,6 +308,9 @@ class PDFExtractor:
                 all_data.iloc[:, 0] = all_data.iloc[:, 0].apply(lambda x: x.replace('\n', ' ') if isinstance(x, str) and '\n' in x else x)
                 
                 all_data = all_data[all_data.iloc[:, 0].isin(Subclassification_expenses)]
+                check_columns= ['Total revenue from operations','Total other income','Total dividend income','Total interest expense','Total finance costs','Total interest income','Total employee benefit expense','Total other non-operating income']
+                all_data = all_data[all_data.iloc[:,0].isin(check_columns)]
+
 
             elif name == "[500200] Notes - Additional information statement of profit and loss":
                 statement_of_profit_and_loss = ['Total changes in inventories of finished goods, work-in-progress and stock-in-trade','Total revenue from sale of products',
@@ -325,7 +373,7 @@ class PDFExtractor:
                 all_data = all_data[all_data.iloc[:, 0].isin(Bussiness_combination_1)]
 
             elif name == "[610800] Notes - Related party":
-                Related_party = ['Whether there are any related party transactions during year','Whether entity applies exemption in Ind AS 24.25']
+                Related_party = ['Whether there are any related party transactions during year','Whether entity applies exemption in Ind AS 24.25','Revenue from sale of goods related party transactions']
                 all_data.columns = all_data.iloc[0] 
                 all_data = all_data[1:]  
                 
