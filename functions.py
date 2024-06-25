@@ -98,10 +98,9 @@ def extract_and_save(file_path):
 
 
 def download_folder():
-    folder_name = "excel_output"
+    folder_name = "Excel_folder"
     zip_file_name = "excel_output.zip"
     
-    # Create a zip file object
     with zipfile.ZipFile(zip_file_name, 'w') as zipf:
         # Get all Excel files in the folder
         excel_files = glob.glob(os.path.join(folder_name, "*.xlsx"))
