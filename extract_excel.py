@@ -411,9 +411,13 @@ def fill_values(check_excel, fill_excel):
 
 
 
-def update_values(fill_excel,result):
+def update_values(fill_excel,result,folder_path):
     filling = load_workbook(filename=fill_excel)
-    arr = result.pop(0)
+    folder_name = os.path.basename(folder_path)
+    for i in range(len(result)):
+        if folder_name == result[i][0]:
+            arr = result.pop(i)
+            break
     fill_sheet = filling.active
 
     def get_value(cell):
