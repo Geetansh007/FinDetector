@@ -3,6 +3,8 @@ import shutil
 from werkzeug.utils import secure_filename
 from extract import PDFExtractor,Save
 from extract_excel import fill_values,create_excel_template,update_values
+import glob
+import zipfile
 
 
 def allowed_file(filename):
@@ -91,3 +93,21 @@ def extract_and_save(file_path):
     company_name = extractor.extract_company_name()
     monetary_unit_value = extractor.extract_monetary_unit()
     return company_name, monetary_unit_value
+
+
+
+
+def download_folder():
+    folder_name = "excel_output"
+    zip_file_name = "excel_output.zip"
+    
+    # Create a zip file object
+    with zipfile.ZipFile(zip_file_name, 'w') as zipf:
+        # Get all Excel files in the folder
+        excel_files = glob.glob(os.path.join(folder_name, "*.xlsx"))
+        
+        for file in excel_files:
+            # Add each file to the zip file
+            zipf.write(file, os.path.basename(file))
+    
+    return zip_file_name

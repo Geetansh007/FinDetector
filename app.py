@@ -1,5 +1,5 @@
 from flask import Flask, request
-from functions import save_uploaded_files, process_uploaded_pdfs,load_pdf_excel
+from functions import save_uploaded_files, process_uploaded_pdfs,load_pdf_excel,download_folder
 
 app = Flask(__name__)
 
@@ -16,7 +16,13 @@ def upload():
         return str(e), 500
 
 
-
+@app.route("/download",methods = ['GET'])
+def download():
+    try:
+        if request.method == "GET":
+            return download_folder()
+    except Exception as e:
+        return str(e),500
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
