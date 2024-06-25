@@ -1,8 +1,9 @@
 import os
 import shutil
 from werkzeug.utils import secure_filename
-from extract import PDFExtractor
-from extract_excel import fill_values,create_excel_template
+from extract import PDFExtractor,Save
+from extract_excel import fill_values,create_excel_template,update_values
+
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() == 'pdf'
@@ -46,10 +47,14 @@ def process_uploaded_pdfs(upload_folder, output_base_folder):
             if not os.path.exists(output_dir):  
                 os.makedirs(output_dir, exist_ok=True)
                 extractor = PDFExtractor(file_path, output_dir)
-                company_name, monetary_unit_value = extract_and_save(file_path, output_dir)
-                results.append((filename, company_name, monetary_unit_value))
                 extractor.extract_all_tables()
-            
+        
+    for filename in os.listdir(upload_folder):
+        if filename.endswith('.pdf'):
+            file_path = os.path.join(upload_folder,filename)
+            company_name, monetary_unit_value = extract_and_save(file_path)
+            results.append((filename, company_name, monetary_unit_value))
+            print("\n",results)
 
     shutil.rmtree(upload_folder)
     os.makedirs(upload_folder, exist_ok=True)
@@ -67,17 +72,22 @@ def load_pdf_excel(output_base_path,excel_folder,result):
             print(f"Loading files from folder: {folder_path}")
             
             files = os.listdir(folder_path)
-            excel_path = create_excel_template(folder, excel_folder)
+            excel_path = create_excel_template(folder_path, excel_folder)
+            print("\nMaking excel\n")
             for file in files:
                 if file.lower().endswith('.xlsx'):
                     file_path = os.path.join(folder_path, file)
-                    fill_values(file_path,excel_path,result)
+                    print(file_path,"\n")
+                    print(excel_path,"\n")
+                    print("printing file is {file_path}")
+                    fill_values(file_path,excel_path)
+            update_values(excel_path,result)
                     
     except Exception as e:
         print(f"An error occurred: {e}")
 
-def extract_and_save(file_path, output_dir):
-    extractor = PDFExtractor(file_path, output_dir)
+def extract_and_save(file_path):
+    extractor = Save(file_path)
     company_name = extractor.extract_company_name()
     monetary_unit_value = extractor.extract_monetary_unit()
     return company_name, monetary_unit_value

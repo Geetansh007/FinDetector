@@ -32,38 +32,6 @@ class PDFExtractor:
                       '[700500] Disclosures - Signatories of financial statements','[700600] Disclosures - Directors report',
                       "[700700] Disclosures - Secretarial audit report"]
 
-
-    def extract_company_name(self):
-        first_page = self.reader.pages[0]
-        text = first_page.extract_text()
-        lines = text.split('\n')
-        for line in lines:
-            if line.strip():
-                company_name = line.strip()
-                return company_name
-        return None
-
-    def extract_monetary_unit(self):
-        pattern = re.compile(r"Unless otherwise specified, all monetary values are in ([\w\s]+) of INR")
-        unit_mapping = {
-            'Millions': 1000000,
-            'Lakhs': 100000,
-            'Thousands': 1000,
-            'Crores': 10000000,
-            'Billions': 1000000000
-        }
-
-        for page_num in range(6):
-            if page_num >= len(self.reader.pages):
-                break
-            page = self.reader.pages[page_num]
-            text = page.extract_text()
-            match = pattern.search(text)
-            if match:
-                unit = match.group(1).strip()
-                return unit_mapping.get(unit, 1)
-        
-        return 1
     def shorten_sheet_name(self, name):
         return ''.join(e for e in name if e.isalnum())[:31]
 
@@ -670,6 +638,50 @@ class PDFExtractor:
         except Exception as e:
             print(f"Error in check_present_column for {name}: {e}")
             return pd.DataFrame()
+
+
+class Save:
+    def __init__(self,file_path):
+        self.file_path = file_path
+        self.reader = PyPDF2.PdfReader(file_path)
+
+    def extract_company_name(self):
+        first_page = self.reader.pages[0]
+        text = first_page.extract_text()
+        lines = text.split('\n')
+        for line in lines:
+            if line.strip():
+                company_name = line.strip()
+                return company_name
+        return None
+
+    def extract_monetary_unit(self):
+        pattern = re.compile(r"Unless otherwise specified, all monetary values are in ([\w\s]+) of INR")
+        unit_mapping = {
+            'Millions': 1000000,
+            'Lakhs': 100000,
+            'Thousands': 1000,
+            'Crores': 10000000,
+            'Billions': 1000000000
+        }
+
+        for page_num in range(6):
+            if page_num >= len(self.reader.pages):
+                break
+            page = self.reader.pages[page_num]
+            text = page.extract_text()
+            match = pattern.search(text)
+            if match:
+                unit = match.group(1).strip()
+                return unit_mapping.get(unit, 1)
+        
+        return 1
+
+
+
+
+
+
 
 
 if __name__ == "__main__":

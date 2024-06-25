@@ -309,16 +309,17 @@ def create_excel_template(folder, excel_folder):
             cell.alignment = Alignment(horizontal='center', vertical='center')
             cell.border = thin_border
 
-    excel_path = os.path.join(excel_folder, f"{folder}.xlsx")
-    workbook = Workbook()
-    workbook.save(excel_path)
+    folder_name = os.path.basename(folder)
+    excel_path = os.path.join(excel_folder, f"{folder_name}.xlsx")
+    print("\nsaved\n")
+    new_wb.save(excel_path)
     return excel_path
 
 
 
 
 
-def fill_values(check_excel, fill_excel, result):
+def fill_values(check_excel, fill_excel):
     # Load the workbooks
     checking = load_workbook(filename=check_excel)
     filling = load_workbook(filename=fill_excel)
@@ -341,8 +342,8 @@ def fill_values(check_excel, fill_excel, result):
 
     # Dictionary to store values from check_sheet
     extracted_values = {}
-    arr = result.pop(0)
-    print(arr)  # Debugging statement to check the result array
+
+
 
     # Function to get value from check_sheet based on the header
     def get_value():
@@ -368,45 +369,80 @@ def fill_values(check_excel, fill_excel, result):
     # Map the extracted values to specific cells in fill_sheet
     if 'Total revenue from operations' in extracted_values:
         total_revenue_from_operations = extracted_values['Total revenue from operations']
-        B9 = (clean_value(total_revenue_from_operations[0])) * arr[2]
-        C9 = (clean_value(total_revenue_from_operations[1])) * arr[2]
+        B9 = (clean_value(total_revenue_from_operations[0])) 
+        C9 = (clean_value(total_revenue_from_operations[1])) 
         set_value("B9", B9)
         set_value("C9", C9)
 
     if 'Total other income' in extracted_values:
         total_other_income = extracted_values['Total other income']
-        B11 = (clean_value(total_other_income[0])) * arr[2]
-        C11 = (clean_value(total_other_income[1])) * arr[2]
+        B11 = (clean_value(total_other_income[0])) 
+        C11 = (clean_value(total_other_income[1])) 
         set_value("B11", B11)
         set_value("C11", C11)
 
     if 'Total dividend income' in extracted_values:
         total_dividend_income = extracted_values['Total dividend income']
-        set_value("B19", (clean_value(total_dividend_income[0])) * arr[2])
-        set_value("C19", (clean_value(total_dividend_income[1])) * arr[2])
+        set_value("B19", (clean_value(total_dividend_income[0])) )
+        set_value("C19", (clean_value(total_dividend_income[1])) )
 
     if 'Total interest income' in extracted_values:
         total_interest_income = extracted_values['Total interest income']
-        set_value("B20", (clean_value(total_interest_income[0])) * arr[2])
-        set_value("C20", (clean_value(total_interest_income[1])) * arr[2])
+        set_value("B20", (clean_value(total_interest_income[0])) )
+        set_value("C20", (clean_value(total_interest_income[1])) )
 
     if 'Total finance costs' in extracted_values:
         total_finance_costs = extracted_values['Total finance costs']
-        set_value("B34", (clean_value(total_finance_costs[0])) * arr[2])
-        set_value("C34", (clean_value(total_finance_costs[1])) * arr[2])
+        set_value("B34", (clean_value(total_finance_costs[0])) )
+        set_value("C34", (clean_value(total_finance_costs[1])) )
 
     if 'Total employee benefit expense' in extracted_values:
         total_employee_benefit = extracted_values['Total employee benefit expense']
-        set_value("B66", (clean_value(total_employee_benefit[0])) * arr[2])
-        set_value("C66", (clean_value(total_employee_benefit[1])) * arr[2])
+        set_value("B66", (clean_value(total_employee_benefit[0])) )
+        set_value("C66", (clean_value(total_employee_benefit[1])) )
 
     # Set summed values
-    set_value("B12", B9 + B10 + B11)
-    set_value("C12", C9 + C10 + C11)
-    set_value("B1", arr[1])
+    if (fill_sheet["B12"].value == None and fill_sheet["C12"].value == None)or(fill_sheet["B12"].value == 0 and fill_sheet["C12"].value == 0) :
+        set_value("B12", B9 + B10 + B11)
+        set_value("C12", C9 + C10 + C11)
 
     # Save the filled workbook
     filling.save(filename=fill_excel)
+
+
+
+def update_values(fill_excel,result):
+    filling = load_workbook(filename=fill_excel)
+    arr = result.pop(0)
+    fill_sheet = filling.active
+
+    def get_value(cell):
+        return fill_sheet[cell].value
+
+    def set_value(cell, value):
+        fill_sheet[cell].value = value
+        print(f"Set value '{value}' in cell '{cell}'")
+
+    set_value("B9",(get_value("B9"))* arr[2])
+    set_value("C9",(get_value("C9"))* arr[2])
+    set_value("B11",(get_value("B11"))* arr[2])
+    set_value("C11",(get_value("C11"))* arr[2])
+    set_value("B19",(get_value("C19"))* arr[2])
+    set_value("C19",(get_value("C19"))* arr[2])
+    set_value("B20",(get_value("B20"))* arr[2])
+    set_value("C20",(get_value("C20"))* arr[2])
+    set_value("B34",(get_value("B34"))* arr[2])
+    set_value("C34",(get_value("C34"))* arr[2])
+    set_value("B66",(get_value("B66"))* arr[2])
+    set_value("C66",(get_value("C66"))* arr[2])
+
+    set_value("B12",(get_value("B12"))* arr[2])
+    set_value("C12",(get_value("C12"))*arr[2])
+
+    set_value("B1",arr[1])
+
+    filling.save(filename=fill_excel)
+
 '''
 result = [['Name.pdf', 'ECLERX', 1000000]]
 fill_values('/home/geetansh/Desktop/Complete_Project/FinDetector/output_path/XBRL_financial_statements_duly_authenticated_as_per_section_134_including_Board/500100NotesSubclassificationand.xlsx', 
