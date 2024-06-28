@@ -415,7 +415,9 @@ def update_values(fill_excel,result,folder_path):
     filling = load_workbook(filename=fill_excel)
     folder_name = os.path.basename(folder_path)
     for i in range(len(result)):
-        if folder_name == result[i][0]:
+        new_name = folder_name + ".pdf"
+        print(new_name," ",result[i][0])
+        if new_name == result[i][0]:
             arr = result.pop(i)
             break
     fill_sheet = filling.active

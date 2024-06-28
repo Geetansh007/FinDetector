@@ -5,6 +5,7 @@ from extract import PDFExtractor, Save
 from extract_excel import fill_values, create_excel_template, update_values
 import glob
 import zipfile
+import pandas as pd
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() == 'pdf'
@@ -109,3 +110,16 @@ def download_folder():
             zipf.write(file, os.path.basename(file))
 
     return zip_file_name
+
+def table_display(folder_path):
+    if not os.path.exists(folder_path):
+        raise ValueError(f"The folder {folder_path} does not exist.")
+    dataframes = {}
+    for filename in os.listdir(folder_path):
+        if filename.endswith('.xlsx'):
+            file_path = os.path.join(folder_path, filename)
+            df = pd.read_excel(file_path)
+            name = os.path.splitext(filename)[0]
+            dataframes[name] = df
+            
+    return dataframes
