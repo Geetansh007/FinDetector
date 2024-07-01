@@ -1,0 +1,242 @@
+0,1
+Extended Links,Mandatory Elements
+[110000] Balance sheet,"Property, plant and equipment"
+[110000] Balance sheet,Other intangible assets
+[110000] Balance sheet,Non-current investments
+[110000] Balance sheet,"Loans, non-current"
+[110000] Balance sheet,Total non-current financial assets
+[110000] Balance sheet,Total non-current assets
+[110000] Balance sheet,Inventories
+[110000] Balance sheet,Current investments
+[110000] Balance sheet,"Trade receivables, current"
+[110000] Balance sheet,Cash and cash equivalents
+[110000] Balance sheet,"Loans, current"
+[110000] Balance sheet,Total current financial assets
+[110000] Balance sheet,Total current assets
+[110000] Balance sheet,Total assets
+[110000] Balance sheet,Equity share capital
+[110000] Balance sheet,Other equity
+[110000] Balance sheet,Total equity
+[110000] Balance sheet,"Borrowings, non-current"
+[110000] Balance sheet,Total non-current financial liabilities
+[110000] Balance sheet,"Provisions, non-current"
+[110000] Balance sheet,Total non-current liabilities
+[110000] Balance sheet,"Borrowings, current"
+[110000] Balance sheet,"Trade payables, current"
+[110000] Balance sheet,Total current financial liabilities
+[110000] Balance sheet,"Provisions, current"
+[110000] Balance sheet,Total current liabilities
+[110000] Balance sheet,Total liabilities
+[110000] Balance sheet,Total equity and liabilities
+[210000] Statement of profit and loss,Revenue from operations
+[210000] Statement of profit and loss,Other income
+[210000] Statement of profit and loss,Total income
+[210000] Statement of profit and loss,Cost of materials consumed
+[210000] Statement of profit and loss,"Changes in inventories of finished goods, work-in-progress and stock-in-trade"
+[210000] Statement of profit and loss,Employee benefit expense
+[210000] Statement of profit and loss,Finance costs
+[210000] Statement of profit and loss,"Depreciation, depletion and amortisation"
+,expense
+[210000] Statement of profit and loss,Other expenses
+[210000] Statement of profit and loss,Total expenses
+[210000] Statement of profit and loss,Total profit before tax
+[210000] Statement of profit and loss,Total tax expense
+[210000] Statement of profit and loss,Total profit (loss) for period from continuing operations
+[210000] Statement of profit and loss,Total profit (loss) for period
+[210000] Statement of profit and loss,Whether company has other comprehensive income OCI components presented net of tax
+[210000] Statement of profit and loss,Total comprehensive income
+[210000] Statement of profit and loss,Comprehensive income OCI components presented before tax [Abstract]
+[210000] Statement of profit and loss,Whether company has comprehensive income OCI components presented before tax
+[210000] Statement of profit and loss,Total comprehensive income
+[210000] Statement of profit and loss,Earnings per share [Table]
+"[310000] Cash flow statement,direct",Whether cash flow statement is applicable on company
+"[320000] Cash flow statement, indirect",Whether cash flow statement is applicable on company
+"[320000] Cash flow statement, indirect",Profit before tax
+[400100] Notes - Equity share capital,Whether there are any shareholders holding more than five per cent shares in company
+"[400600] Notes - Property, plant and equipment","Whether property, plant and equipment are stated at revalued amount"
+[400700] Notes - Investment property,"Depreciation method, investment property, cost model"
+[400700] Notes - Investment property,"Useful lives or depreciation rates, investment property, cost model"
+[400900] Notes - Other intangible assets,Whether other intangible assets are stated at revalued amount
+[400900] Notes - Other intangible assets,Whether there are intangible assets with indefinite useful life
+[401000] Notes - Biological assets other than bearer plants,"Depreciation method, biological assets other than bearer plants, at cost"
+[401000] Notes - Biological assets other than bearer plants,"Useful lives or depreciation rates, biological assets other than bearer plants, at cost"
+[401100] Notes - Subclassification and notes on liabilities and assets,"Advances, non-current"
+[401100] Notes - Subclassification and notes on liabilities and assets,Fixed deposits with banks
+[401100] Notes - Subclassification and notes on liabilities and assets,Total balance with banks
+[401100] Notes - Subclassification and notes on liabilities and assets,Cash on hand
+[401100] Notes - Subclassification and notes on liabilities and assets,Total cash and cash equivalents
+[401100] Notes - Subclassification and notes on liabilities and assets,Total cash and bank balances
+[401100] Notes - Subclassification and notes on liabilities and assets,"Total balances held with banks to extent held as margin money or security against borrowings, guarantees or other commitments"
+[401100] Notes - Subclassification and notes on liabilities and assets,Bank deposits with more than 12 months maturity
+[401100] Notes - Subclassification and notes on liabilities and assets,Interest accrued on borrowings
+[401100] Notes - Subclassification and notes on liabilities and assets,Interest accrued on public deposits
+[401100] Notes - Subclassification and notes on liabilities and assets,Interest accrued others
+[401100] Notes - Subclassification and notes on liabilities and assets,Unpaid dividends
+[401100] Notes - Subclassification and notes on liabilities and assets,Total application money received for allotment of securities and due for refund and interest accrued thereon
+[401100] Notes - Subclassification and notes on liabilities and assets,Unpaid matured deposits and interest accrued thereon
+[401100] Notes - Subclassification and notes on liabilities and assets,Unpaid matured debentures and interest accrued thereon
+[401100] Notes - Subclassification and notes on liabilities and assets,Debentures claimed but not paid
+[401100] Notes - Subclassification and notes on liabilities and assets,"Public deposit payable, current"
+[401100] Notes - Subclassification and notes on liabilities and assets,Current liabilities portion of share application money pending allotment
+[401200] Notes - Additional disclosures on balance sheet,Total contingent liabilities
+[401200] Notes - Additional disclosures on balance sheet,Total contingent liabilities and commitments
+[401200] Notes - Additional disclosures on balance sheet,Deposits accepted or renewed during period
+[401200] Notes - Additional disclosures on balance sheet,Deposits matured and claimed but not paid during period
+[401200] Notes - Additional disclosures on balance sheet,Deposits matured and claimed but not paid
+[401200] Notes - Additional disclosures on balance sheet,Deposits matured but not claimed
+[401200] Notes - Additional disclosures on balance sheet,Interest on deposits accrued and due but not paid
+[401200] Notes - Additional disclosures on balance sheet,Share application money received during year
+[401200] Notes - Additional disclosures on balance sheet,Share application money paid during year
+[401200] Notes - Additional disclosures on balance sheet,Amount of share application money received back during year
+[401200] Notes - Additional disclosures on balance sheet,Amount of share application money repaid returned back during year
+[401200] Notes - Additional disclosures on balance sheet,Number of person share application money paid during year
+[401200] Notes - Additional disclosures on balance sheet,Number of person share application money received during year
+[401200] Notes - Additional disclosures on balance sheet,Number of person share application money paid as at end of year
+[401200] Notes - Additional disclosures on balance sheet,Number of person share application money received as at end of year
+[401200] Notes - Additional disclosures on balance sheet,Share application money received and due for refund
+[401200] Notes - Additional disclosures on balance sheet,Net worth of company
+[401200] Notes - Additional disclosures on balance sheet,Unclaimed share application refund money
+[401200] Notes - Additional disclosures on balance sheet,Unclaimed matured debentures
+[401200] Notes - Additional disclosures on balance sheet,Unclaimed matured deposits
+[401200] Notes - Additional disclosures on balance sheet,Interest unclaimed amount
+[401200] Notes - Additional disclosures on balance sheet,Investment in subsidiary companies
+[401200] Notes - Additional disclosures on balance sheet,Investment in government companies
+[401200] Notes - Additional disclosures on balance sheet,Amount due for transfer to investor education and protection fund (IEPF)
+[401200] Notes - Additional disclosures on balance sheet,Gross value of transactions with related parties
+[401200] Notes - Additional disclosures on balance sheet,Number of warrants converted into equity shares during period
+[401200] Notes - Additional disclosures on balance sheet,Number of warrants converted into preference shares during period
+[401200] Notes - Additional disclosures on balance sheet,Number of warrants converted into debentures during period
+[401200] Notes - Additional disclosures on balance sheet,Number of warrants issued during period (in foreign currency)
+[401200] Notes - Additional disclosures on balance sheet,Number of warrants issued during period (INR)
+[401200] Notes - Additional disclosures on balance sheet,Details of specified bank Notes held and transacted during the period from 8 November 2016 to 30 December 2016 [Table]
+[500100] Notes - Subclassification and notes on income and expenses,Total revenue from operations
+[500100] Notes - Subclassification and notes on income and expenses,Total interest income
+[500100] Notes - Subclassification and notes on income and expenses,Total dividend income
+[500100] Notes - Subclassification and notes on income and expenses,Total other income
+[500100] Notes - Subclassification and notes on income and expenses,Total interest expense
+[500100] Notes - Subclassification and notes on income and expenses,Total finance costs
+[500100] Notes - Subclassification and notes on income and expenses,Salaries and wages
+[500100] Notes - Subclassification and notes on income and expenses,Total remuneration to directors
+[500100] Notes - Subclassification and notes on income and expenses,Total managerial remuneration
+[500100] Notes - Subclassification and notes on income and expenses,Total employee benefit expense
+[500100] Notes - Subclassification and notes on income and expenses,"Total depreciation, depletion and amortisation expense"
+[500100] Notes - Subclassification and notes on income and expenses,Consumption of stores and spare parts
+[500100] Notes - Subclassification and notes on income and expenses,Power and fuel
+[500100] Notes - Subclassification and notes on income and expenses,Rent
+[500100] Notes - Subclassification and notes on income and expenses,Repairs to building
+[500100] Notes - Subclassification and notes on income and expenses,Repairs to machinery
+[500100] Notes - Subclassification and notes on income and expenses,Insurance
+[500100] Notes - Subclassification and notes on income and expenses,Total rates and taxes excluding taxes on income
+[500100] Notes - Subclassification and notes on income and expenses,Directors sitting fees
+[500100] Notes - Subclassification and notes on income and expenses,Loss on disposal of intangible Assets
+[500100] Notes - Subclassification and notes on income and expenses,"Loss on disposal, discard, demolishment and destruction of depreciable property plant and equipment"
+[500100] Notes - Subclassification and notes on income and expenses,Total payments to auditor
+[500100] Notes - Subclassification and notes on income and expenses,CSR expenditure
+[500100] Notes - Subclassification and notes on income and expenses,Miscellaneous expenses
+[500200] Notes - Additional information statement of profit and loss,"Total changes in inventories of finished goods, work-in-progress and stock-in-trade"
+[500200] Notes - Additional information statement of profit and loss,Total revenue from sale of products
+[500200] Notes - Additional information statement of profit and loss,Total revenue from sale of services
+[500200] Notes - Additional information statement of profit and loss,Gross value of transaction with related parties
+[500200] Notes - Additional information statement of profit and loss,Bad debts of related parties
+[610200] Notes - Corporate information and statement of IndAs compliance,Statement of Ind AS compliance [Text Block]
+[610200] Notes - Corporate information and statement of IndAs compliance,Whether there is any departure from Ind AS
+[610200] Notes - Corporate information and statement of IndAs compliance,Whether there are reclassifications to comparative amounts
+"[610300] Notes - Accounting policies, changes in accounting estimates and errors",Whether initial application of an Ind AS has an effect on the current period or any prior period
+"[610300] Notes - Accounting policies, changes in accounting estimates and errors",Whether there is any voluntary change in accounting policy
+"[610300] Notes - Accounting policies, changes in accounting estimates and errors",Whether there are changes in acounting estimates during the year
+[610500] Notes - Events after reporting period,Whether there are non adjusting events after reporting period
+[610700] Notes - Business combinations,Whether there is any business combination
+[610700] Notes - Business combinations,Whether there is any goodwill arising out of business combination
+[610700] Notes - Business combinations,Whether there are any acquired receivables from business combination
+[610700] Notes - Business combinations,Whether there are any contingent liabilities in business combination
+[610800] Notes - Related party,Whether there are any related party transactions during year
+[610800] Notes - Related party,Whether entity applies exemption in Ind AS 24.25
+[610900] Notes - First time adoption,Whether company has adopted Ind AS first time
+[611000] Notes - Exploration for and evaluation of mineral resources,Whether there are any exploration and evaluation activities
+[611200] Notes - Fair value measurement,Whether assets have been measured at fair value
+[611200] Notes - Fair value measurement,Whether liabilities have been measured at fair value
+,[611200] Notes - Fair value measurement  Whether equity have been measured at fair value
+[611500] Notes - Interests in other entities,Whether company has subsidiary companies which are yet to commence operations
+[611500] Notes - Interests in other entities,Whether company has subsidiary companies liquidated or sold during year
+[611500] Notes - Interests in other entities  Whether company has invested in associates,
+[611500] Notes - Interests in other entities,Whether company has associates which are yet to commence operations
+[611500] Notes - Interests in other entities,Whether company has associates liquidated or sold during year
+[611500] Notes - Interests in other entities  Whether company has invested in joint ventures,
+[611500] Notes - Interests in other entities,Whether company has joint ventures which are yet to commence operations
+[611500] Notes - Interests in other entities,Whether company has joint ventures liquidated or sold during year
+[611500] Notes - Interests in other entities,Whether there are unconsolidated structured entities
+[611500] Notes - Interests in other entities  Whether there are unconsolidated subsidiaries,
+[611500] Notes - Interests in other entities,Whether there are unconsolidated structured entities controlled by investment entity
+"[611700] Notes - Other provisions, contingent liabilities and contingent assets",Whether there are any contingent liabilities
+[611900] Notes - Accounting for government grants and disclosure of government assistance,Whether company has received any government grant or government assistance
+[612000] Notes - Construction contracts,Whether there are any construction contracts
+[612100] Notes - Impairment of assets,Whether there is any impairment loss or reversal of impairment loss during the year
+[612100] Notes - Impairment of assets,Whether impairment loss recognised or reversed for individual Assets or cash-generating unit
+[612200] Notes - Leases,Whether company has entered into any lease agreement
+[612200] Notes - Leases,Whether any operating lease has been converted to financial lease or vice-versa
+[612300] Notes - Transactions involving legal form of lease,Whether there are any arrangements involving legal form of lease
+[612400] Notes - Service concession arrangements,Whether there are any service concession arrangements
+[612500] Notes - Share-based payment arrangements,Whether there are any share based payment arrangement
+[612600] Notes - Employee benefits,Whether there are any defined benefit plans
+[612800] Notes - Borrowing costs,Whether any borrowing costs has been capitalised during the year
+[612900] Notes - Insurance contracts,Whether there are any insurance contracts as per Ind AS 104
+[613000] Notes - Earnings per share,"Profit (loss), attributable to ordinary equity holders of parent entity"
+[613000] Notes - Earnings per share,"Profit (loss), attributable to ordinary equity holders of parent entity including dilutive effects"
+[613000] Notes - Earnings per share,Weighted average number of ordinary shares outstanding
+[613100] Notes - Effects of changes in foreign exchange rates,Whether there is any change in functional currency during the year
+[613100] Notes - Effects of changes in foreign exchange rates,Description of presentation currency
+[613300] Notes - Operating segments,Whether there are any reportable segments
+[613300] Notes - Operating segments,Whether there are any major customers
+[613400] Notes - Consolidated Financial Statements,Whether consolidated financial statements is applicable on company
+[700100] Notes - Key managerial personnels and directors remuneration and other information,Disclosure of key managerial personnels and directors and remuneration to key managerial personnels and directors [Table]
+[700200] Notes - Corporate social responsibility,Whether provisions of corporate social responsibility are applicable on company
+[700300] Disclosure of general information about company,Name of company
+[700300] Disclosure of general information about company,Corporate identity number
+[700300] Disclosure of general information about company,Permanent account number of entity
+[700300] Disclosure of general information about company,Address of registered office of company
+[700300] Disclosure of general information about company,Type of industry
+[700300] Disclosure of general information about company,Date of board meeting when final accounts were approved
+[700300] Disclosure of general information about company,Date of start of reporting period
+[700300] Disclosure of general information about company,Date of end of reporting period
+[700300] Disclosure of general information about company,Nature of report standalone consolidated
+[700300] Disclosure of general information about company,Content of report
+[700300] Disclosure of general information about company,Description of presentation currency
+[700300] Disclosure of general information about company,Level of rounding used in financial statements
+[700300] Disclosure of general information about company,Whether company is maintaining books of account and other relevant books and papers in electronic form
+[700400] Disclosures - Auditors report,Disclosure in auditor’s report explanatory [Text
+,Block]
+[700400] Disclosures - Auditors report,Whether companies auditors report order is applicable on company
+[700400] Disclosures - Auditors report,Whether auditors' report has been qualified or has any reservations or contains adverse remarks
+[700400] Disclosures - Auditors report,Details regarding auditors [Table]
+[700500] Disclosures - Signatories of financial statements,Details of directors signing financial statements [Table]
+[700600] Disclosures - Directors report,Disclosure in board of directors report explanatory [Text Block]
+[700600] Disclosures - Directors report,Description of state of companies affair
+[700600] Disclosures - Directors report,Disclosure relating to amounts if any which is proposed to carry to any reserves
+[700600] Disclosures - Directors report,Disclosures relating to amount recommended to be paid as dividend
+[700600] Disclosures - Directors report,Details regarding energy conservation
+[700600] Disclosures - Directors report,Details regarding technology absorption
+[700600] Disclosures - Directors report,Details regarding foreign exchange earnings and outgo
+[700600] Disclosures - Directors report,Disclosures in director’s responsibility statement
+[700600] Disclosures - Directors report,Details of material changes and commitment occurred during period affecting financial position of company
+[700600] Disclosures - Directors report,Particulars of loans guarantee investment under section 186 [Text Block]
+[700600] Disclosures - Directors report,Particulars of contracts/arrangements with related parties under section 188(1) [Text Block]
+[700600] Disclosures - Directors report,Whether there are contracts/arrangements/transactions not at arm's length basis
+[700600] Disclosures - Directors report,Whether there are material contracts/arrangements/transactions at arm's length basis
+[700600] Disclosures - Directors report,Disclosure of extract of annual return as provided under section 92(3) [Text Block]
+[700600] Disclosures - Directors report,Details of principal business activities contributing 10% or more of total turnover of company [Table]
+[700600] Disclosures - Directors report,Disclosure of statement on declaration given by independent directors under section 149(6) [Text Block]
+[700600] Disclosures - Directors report,Disclosure for companies covered under section 178(1) on directors appointment and remuneration including other matters provided under section 178(3) [Text Block]
+[700600] Disclosures - Directors report,Disclosure of statement on development and implementation of risk management policy [Text Block]
+[700600] Disclosures - Directors report,Details on policy development and implementation by company on corporate social responsibility initiatives taken during year [Text Block]
+[700600] Disclosures - Directors report,Disclosure of financial summary or highlights [Text Block]
+[700600] Disclosures - Directors report,Disclosure of change in nature of business [Text Block]
+[700600] Disclosures - Directors report,Details of directors or key managerial personnels who were appointed or have resigned during year [Text Block]
+[700600] Disclosures - Directors report,"Disclosure of companies which have become or ceased to be its subsidiaries, joint ventures or associate companies during year [Text Block]"
+[700600] Disclosures - Directors report,Details relating to deposits covered under chapter v of companies act [Text Block]
+[700600] Disclosures - Directors report,Details of deposits which are not in compliance with requirements of chapter v of act [Text Block]
+[700600] Disclosures - Directors report,Details of significant and material orders passed by regulators or courts or tribunals impacting going concern status and company’s operations in future [Text Block]
+[700600] Disclosures - Directors report,Details regarding adequacy of internal financial controls with reference to financial statements [Text Block]
+[700600] Disclosures - Directors report,"Disclosure of appointment and remuneration of director or managerial personnel if any, in the financial year [Text Block]"
+[700600] Disclosures - Directors report,Number of meetings of board
+[700600] Disclosures - Directors report,Details of directors signing board report [Table]
+[700700] Disclosures - Secretarial audit report,Whether secretarial audit report is applicable on company
