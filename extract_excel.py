@@ -350,9 +350,14 @@ def fill_values(check_excel, fill_excel):
         'Purchase of Goods / Services',
         'Total trade receivables',
         'Trade payables, current',
-        'Other current financial assets others',
+        'Other current assets others',
         'Loss on disposal, discard, demolishment and destruction of depreciable property plant and equipment',
-        'Total net loss on sale of investments'
+        'Total net loss on sale of investments',
+        'Other current financial liabilities',
+        'Other current financial liabilities',
+        'Other current financial assets others',
+        'Other current financial assets others',
+        'Other current financial assets others'
     ]
 
     # Dictionary to store values from check_sheet
@@ -363,9 +368,19 @@ def fill_values(check_excel, fill_excel):
         for row in check_sheet.iter_rows(min_row=2, values_only=True):  # Iterate over each row starting from the second
             header = row[0]
             if header in checking_columns:
-                extracted_values[header] = row[1:]
-                print(f"Extracted values for '{header}': {row[1:]}")  # Debugging statement
-
+                # Check if the header already exists in extracted_values
+                if header not in extracted_values:
+                    extracted_values[header] = (row[1:])
+                else:
+                    # Find a new unique header name
+                    index = 1
+                    new_header = f"{header}{index}"
+                    while new_header in extracted_values:
+                        index += 1
+                        new_header = f"{header}{index}"
+                    extracted_values[new_header] = (row[1:])
+                    
+                print(f"Extracted values for '{header}': {extracted_values[header]}")
     get_value()
 
     B9, C9, B10, C10, B11, C11 = 0, 0, 0, 0, 0, 0
@@ -484,15 +499,21 @@ def fill_values(check_excel, fill_excel):
         set_value("B77", clean_value(other[0]))
         set_value("C77", clean_value(other[1]))
 
-    if 'Other current financial assets others' in extracted_values:
+    if 'Other current financial assets others1' in extracted_values:
         fincaiacl = extracted_values['Other current financial assets others']
-        set_value("B82", clean_value(fincaiacl[0]))
-        set_value("C82", clean_value(fincaiacl[1]))
+        set_value("B76", clean_value(fincaiacl[0]))
+        set_value("C76", clean_value(fincaiacl[1]))
 
-    if 'Other current financial assets others' in extracted_values:
+    if 'Other current financial assets others2' in extracted_values:
+        tree = extracted_values['Other current financial assets others']
+        set_value("B82", clean_value(tree[0]))
+        set_value("C82", clean_value(tree[1]))
+
+    if 'Other current financial assets others3' in extracted_values:
         tree = extracted_values['Other current financial assets others']
         set_value("B83", clean_value(tree[0]))
         set_value("C83", clean_value(tree[1]))
+
 
     # Set summed values
     if (fill_sheet["B12"].value is None and fill_sheet["C12"].value is None) or (fill_sheet["B12"].value == 0 and fill_sheet["C12"].value == 0):
@@ -539,6 +560,18 @@ def update_values(fill_excel,result,folder_path):
     set_value("C12",(get_value("C12"))*arr[2])
 
     set_value("B1",arr[1])
+    other_cells = [
+        "B10", "C10", "B22", "C22", "B23", "C23", "B28", "C28", 
+        "B35", "C35", "B36", "C36", "B37", "C37", "B38", "C38", 
+        "B39", "C39", "B41", "C41", "B56", "C56", "B75", "C75", 
+        "B80", "C80", "B76", "C76", "B77", "C77", "B82", "C82", 
+        "B83", "C83"
+    ]
+    
+    for cell in other_cells:
+        original_value = get_value(cell)
+        if original_value is not None:  # Ensure the cell is not empty
+            set_value(cell, original_value * arr[2])
 
     filling.save(filename=fill_excel)
 
