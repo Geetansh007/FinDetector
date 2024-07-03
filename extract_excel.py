@@ -1,5 +1,5 @@
 from openpyxl import Workbook,load_workbook
-from openpyxl.styles import Alignment, Font, Border, Side
+from openpyxl.styles import Alignment, Font, Border, Side,PatternFill
 import os
 import re
 import pandas as pd
@@ -25,12 +25,21 @@ def create_excel_template(folder, excel_folder):
     
     # Set alignment for headers
     center_alignment = Alignment(horizontal='center', vertical='center')
+    left_alignment = Alignment(horizontal='left', vertical='center')
 
-    # Set thin border for all cells
+    # Set borders
     thin_border = Border(left=Side(style='thin'), 
                          right=Side(style='thin'), 
                          top=Side(style='thin'), 
                          bottom=Side(style='thin'))
+
+    thick_border = Border(left=Side(style='thick'), 
+                          right=Side(style='thick'), 
+                          top=Side(style='thick'), 
+                          bottom=Side(style='thick'))
+
+    # Fill for headers
+    light_grey_fill = PatternFill(start_color="D3D3D3", end_color="D3D3D3", fill_type="solid")
 
     # Add headers and format them
     ws["A1"].value = "Full Name of the company"
@@ -47,9 +56,12 @@ def create_excel_template(folder, excel_folder):
     ws["A6"].value = "Particulars"
     ws["A6"].font = bold_font
     ws["A6"].alignment = center_alignment
-    ws["A6"].border = thin_border
-    ws["B6"].border = thin_border
-    ws["C6"].border = thin_border
+    ws["A6"].border = thick_border
+    ws["A6"].fill = light_grey_fill
+    ws["B6"].border = thick_border
+    ws["B6"].fill = light_grey_fill
+    ws["C6"].border = thick_border
+    ws["C6"].fill = light_grey_fill
     ws["D6"].border = thin_border
     ws["E6"].border = thin_border
 
@@ -74,6 +86,7 @@ def create_excel_template(folder, excel_folder):
     for i, item in enumerate(income_particulars, start=9):
         ws[f"A{i}"].value = item
         ws[f"A{i}"].border = thin_border
+        ws[f"A{i}"].alignment = left_alignment
 
     # Less Reclassification items
     Less_Reclassification_items_row = 13
@@ -83,8 +96,10 @@ def create_excel_template(folder, excel_folder):
     ws["A" + str(Less_Reclassification_items_row)].border = thin_border
     ws["A" + str(Less_Reclassification_items_row + 1)].value = "Excise duty (forming part of total cost)"
     ws["A" + str(Less_Reclassification_items_row + 1)].border = thin_border
+    ws["A" + str(Less_Reclassification_items_row + 1)].alignment = left_alignment
     ws["A" + str(Less_Reclassification_items_row + 2)].value = "Sales tax (forming part of total cost)"
     ws["A" + str(Less_Reclassification_items_row + 2)].border = thin_border
+    ws["A" + str(Less_Reclassification_items_row + 2)].alignment = left_alignment
 
     # Less non-operating items of income
     Less_non_operating_items_of_income_row = 17
@@ -99,6 +114,7 @@ def create_excel_template(folder, excel_folder):
     for i, item in enumerate(non_operating_items, start=18):
         ws[f"A{i}"].value = item
         ws[f"A{i}"].border = thin_border
+        ws[f"A{i}"].alignment = left_alignment
 
     # Expenditure section
     expenditure_row = 27
@@ -108,6 +124,7 @@ def create_excel_template(folder, excel_folder):
     ws["A" + str(expenditure_row)].border = thin_border
     ws["A" + str(expenditure_row + 1)].value = "Total expenditure"
     ws["A" + str(expenditure_row + 1)].border = thin_border
+    ws["A" + str(expenditure_row + 1)].alignment = left_alignment
 
     less_reclassification_items_row = 29
     ws["A" + str(less_reclassification_items_row)].value = "Less: Reclassification items"
@@ -116,10 +133,13 @@ def create_excel_template(folder, excel_folder):
     ws["A" + str(less_reclassification_items_row)].border = thin_border
     ws["A" + str(less_reclassification_items_row + 1)].value = "Excise duty (forming part of total cost)"
     ws["A" + str(less_reclassification_items_row + 1)].border = thin_border
+    ws["A" + str(less_reclassification_items_row + 1)].alignment = left_alignment
     ws["A" + str(less_reclassification_items_row + 2)].value = "Sales tax (forming part of total cost)"
     ws["A" + str(less_reclassification_items_row + 2)].border = thin_border
+    ws["A" + str(less_reclassification_items_row + 2)].alignment = left_alignment
     ws["A" + str(less_reclassification_items_row + 3)].value = "Change in stock"
     ws["A" + str(less_reclassification_items_row + 3)].border = thin_border
+    ws["A" + str(less_reclassification_items_row + 3)].alignment = left_alignment
 
     # Less non-operating expenses
     less_non_operating_expenses_row = 33
@@ -129,32 +149,46 @@ def create_excel_template(folder, excel_folder):
     ws["A" + str(less_non_operating_expenses_row)].border = thin_border
     ws["A" + str(less_non_operating_expenses_row + 1)].value = "Interest paid"
     ws["A" + str(less_non_operating_expenses_row + 1)].border = thin_border
+    ws["A" + str(less_non_operating_expenses_row + 1)].alignment = left_alignment
     ws["A" + str(less_non_operating_expenses_row + 2)].value = "Less: Interest expense on lease liability (rentals)"
     ws["A" + str(less_non_operating_expenses_row + 2)].border = thin_border
+    ws["A" + str(less_non_operating_expenses_row + 2)].alignment = left_alignment
     ws["A" + str(less_non_operating_expenses_row + 3)].value = "Other Financing charges"
     ws["A" + str(less_non_operating_expenses_row + 3)].border = thin_border
+    ws["A" + str(less_non_operating_expenses_row + 3)].alignment = left_alignment
     ws["A" + str(less_non_operating_expenses_row + 4)].value = "Loss on sale of fixed assets"
     ws["A" + str(less_non_operating_expenses_row + 4)].border = thin_border
+    ws["A" + str(less_non_operating_expenses_row + 4)].alignment = left_alignment
     ws["A" + str(less_non_operating_expenses_row + 5)].value = "Loss on Sale of Investment"
     ws["A" + str(less_non_operating_expenses_row + 5)].border = thin_border
+    ws["A" + str(less_non_operating_expenses_row + 5)].alignment = left_alignment
     ws["A" + str(less_non_operating_expenses_row + 6)].value = "Provision for diminution in the value of investment"
     ws["A" + str(less_non_operating_expenses_row + 6)].border = thin_border
+    ws["A" + str(less_non_operating_expenses_row + 6)].alignment = left_alignment
     ws["A" + str(less_non_operating_expenses_row + 7)].value = "Preliminary Expenses Written Off"
     ws["A" + str(less_non_operating_expenses_row + 7)].border = thin_border
+    ws["A" + str(less_non_operating_expenses_row + 7)].alignment = left_alignment
     ws["A" + str(less_non_operating_expenses_row + 8)].value = "Donations / CSR"
     ws["A" + str(less_non_operating_expenses_row + 8)].border = thin_border
+    ws["A" + str(less_non_operating_expenses_row + 8)].alignment = left_alignment
     ws["A" + str(less_non_operating_expenses_row + 9)].value = "Loss due to fire/theft/natural calamity/breakdown/strike"
     ws["A" + str(less_non_operating_expenses_row + 9)].border = thin_border
+    ws["A" + str(less_non_operating_expenses_row + 9)].alignment = left_alignment
     ws["A" + str(less_non_operating_expenses_row + 10)].value = "Voluntary Retirement Scheme"
     ws["A" + str(less_non_operating_expenses_row + 10)].border = thin_border
+    ws["A" + str(less_non_operating_expenses_row + 10)].alignment = left_alignment
     ws["A" + str(less_non_operating_expenses_row + 11)].value = "Any other item"
     ws["A" + str(less_non_operating_expenses_row + 11)].border = thin_border
+    ws["A" + str(less_non_operating_expenses_row + 11)].alignment = left_alignment
     ws["A" + str(less_non_operating_expenses_row + 12)].value = "Operating Expenses before adjustments"
     ws["A" + str(less_non_operating_expenses_row + 12)].border = thin_border
+    ws["A" + str(less_non_operating_expenses_row + 12)].alignment = left_alignment
     ws["A" + str(less_non_operating_expenses_row + 13)].value = "Re-measurement of net defined liability"
     ws["A" + str(less_non_operating_expenses_row + 13)].border = thin_border
+    ws["A" + str(less_non_operating_expenses_row + 13)].alignment = left_alignment
     ws["A" + str(less_non_operating_expenses_row + 14)].value = "Operating Expenses after adjustments"
     ws["A" + str(less_non_operating_expenses_row + 14)].border = thin_border
+    ws["A" + str(less_non_operating_expenses_row + 14)].alignment = left_alignment
 
     # Profits section
     profits_row = 48
@@ -164,8 +198,10 @@ def create_excel_template(folder, excel_folder):
     ws["A" + str(profits_row)].border = thin_border
     ws["A" + str(profits_row + 1)].value = "Net profits"
     ws["A" + str(profits_row + 1)].border = thin_border
+    ws["A" + str(profits_row + 1)].alignment = left_alignment
     ws["A" + str(profits_row + 2)].value = "Operating profits"
     ws["A" + str(profits_row + 2)].border = thin_border
+    ws["A" + str(profits_row + 2)].alignment = left_alignment
 
     # Profit level indicator
     profit_level_indicator_row = 51
@@ -175,6 +211,7 @@ def create_excel_template(folder, excel_folder):
     ws["A" + str(profit_level_indicator_row)].border = thin_border
     ws["A" + str(profit_level_indicator_row + 1)].value = "Operating Profits/Operating Expenses (using foreign exchange fluctuation as operating)"
     ws["A" + str(profit_level_indicator_row + 1)].border = thin_border
+    ws["A" + str(profit_level_indicator_row + 1)].alignment = left_alignment
 
     # Filter computation
     filter_computation_row = 53
@@ -190,24 +227,34 @@ def create_excel_template(folder, excel_folder):
     ws["A" + str(rpt_filter_row)].border = thin_border
     ws["A" + str(rpt_filter_row + 1)].value = "Nature of transaction"
     ws["A" + str(rpt_filter_row + 1)].border = thin_border
+    ws["A" + str(rpt_filter_row + 1)].alignment = left_alignment
     ws["A" + str(rpt_filter_row + 2)].value = "Purchase of goods"
     ws["A" + str(rpt_filter_row + 2)].border = thin_border
+    ws["A" + str(rpt_filter_row + 2)].alignment = left_alignment
     ws["A" + str(rpt_filter_row + 3)].value = "Sale of goods"
     ws["A" + str(rpt_filter_row + 3)].border = thin_border
+    ws["A" + str(rpt_filter_row + 3)].alignment = left_alignment
     ws["A" + str(rpt_filter_row + 4)].value = "Provision of services"
     ws["A" + str(rpt_filter_row + 4)].border = thin_border
+    ws["A" + str(rpt_filter_row + 4)].alignment = left_alignment
     ws["A" + str(rpt_filter_row + 5)].value = "Receipt of services"
     ws["A" + str(rpt_filter_row + 5)].border = thin_border
+    ws["A" + str(rpt_filter_row + 5)].alignment = left_alignment
     ws["A" + str(rpt_filter_row + 6)].value = "Payment / receipt of royalty"
     ws["A" + str(rpt_filter_row + 6)].border = thin_border
+    ws["A" + str(rpt_filter_row + 6)].alignment = left_alignment
     ws["A" + str(rpt_filter_row + 7)].value = "Other Expenses"
     ws["A" + str(rpt_filter_row + 7)].border = thin_border
+    ws["A" + str(rpt_filter_row + 7)].alignment = left_alignment
     ws["A" + str(rpt_filter_row + 8)].value = "Other Incomes"
     ws["A" + str(rpt_filter_row + 8)].border = thin_border
+    ws["A" + str(rpt_filter_row + 8)].alignment = left_alignment
     ws["A" + str(rpt_filter_row + 9)].value = "Value of transactions with related parties"
     ws["A" + str(rpt_filter_row + 9)].border = thin_border
+    ws["A" + str(rpt_filter_row + 9)].alignment = left_alignment
     ws["A" + str(rpt_filter_row + 10)].value = "% of transactions with related parties"
     ws["A" + str(rpt_filter_row + 10)].border = thin_border
+    ws["A" + str(rpt_filter_row + 10)].alignment = left_alignment
 
     # Employee cost filter
     employee_cost_filter_row = 65
@@ -217,8 +264,10 @@ def create_excel_template(folder, excel_folder):
     ws["A" + str(employee_cost_filter_row)].border = thin_border
     ws["A" + str(employee_cost_filter_row + 1)].value = "Employee benefit expense"
     ws["A" + str(employee_cost_filter_row + 1)].border = thin_border
+    ws["A" + str(employee_cost_filter_row + 1)].alignment = left_alignment
     ws["A" + str(employee_cost_filter_row + 2)].value = "Employee benefit expense as a % of total expenses"
     ws["A" + str(employee_cost_filter_row + 2)].border = thin_border
+    ws["A" + str(employee_cost_filter_row + 2)].alignment = left_alignment
 
     # Export revenue filter
     export_revenue_filter_row = 68
@@ -228,8 +277,10 @@ def create_excel_template(folder, excel_folder):
     ws["A" + str(export_revenue_filter_row)].border = thin_border
     ws["A" + str(export_revenue_filter_row + 1)].value = "Export revenue / Revenue earned in Foreign exchange"
     ws["A" + str(export_revenue_filter_row + 1)].border = thin_border
+    ws["A" + str(export_revenue_filter_row + 1)].alignment = left_alignment
     ws["A" + str(export_revenue_filter_row + 2)].value = "Export revenue as a % of total revenue"
     ws["A" + str(export_revenue_filter_row + 2)].border = thin_border
+    ws["A" + str(export_revenue_filter_row + 2)].alignment = left_alignment
 
     # Information for working capital adjustment
     ws["A72"].value = "B. Information for working capital adjustment"
@@ -276,44 +327,63 @@ def create_excel_template(folder, excel_folder):
     section_b_row = 75
     ws["A" + str(section_b_row)].value = "Sundry Debtors/Bills receivable"
     ws["A" + str(section_b_row)].border = thin_border
+    ws["A" + str(section_b_row)].alignment = left_alignment
     ws["A" + str(section_b_row + 1)].value = "Unbilled Revenue"
     ws["A" + str(section_b_row + 1)].border = thin_border
+    ws["A" + str(section_b_row + 1)].alignment = left_alignment
     ws["A" + str(section_b_row + 2)].value = "Less: Advances from customers/Unearned revenue"
     ws["A" + str(section_b_row + 2)].border = thin_border
+    ws["A" + str(section_b_row + 2)].alignment = left_alignment
     ws["A" + str(section_b_row + 3)].value = "Less: Advance Revenue/Prepaid revenue"
     ws["A" + str(section_b_row + 3)].border = thin_border
+    ws["A" + str(section_b_row + 3)].alignment = left_alignment
     ws["A" + str(section_b_row + 4)].value = "Accounts receivable"
     ws["A" + str(section_b_row + 4)].border = thin_border
+    ws["A" + str(section_b_row + 4)].alignment = left_alignment
     ws["A" + str(section_b_row + 5)].value = "Sundry Creditors/Bills Payable"
     ws["A" + str(section_b_row + 5)].border = thin_border
+    ws["A" + str(section_b_row + 5)].alignment = left_alignment
     ws["A" + str(section_b_row + 6)].value = "Less: Prepaid Expenses"
     ws["A" + str(section_b_row + 6)].border = thin_border
+    ws["A" + str(section_b_row + 6)].alignment = left_alignment
     ws["A" + str(section_b_row + 7)].value = "Less: Advances paid to vendors"
     ws["A" + str(section_b_row + 7)].border = thin_border
+    ws["A" + str(section_b_row + 7)].alignment = left_alignment
     ws["A" + str(section_b_row + 8)].value = "Less: Advance recoverable in cash or in kind"
     ws["A" + str(section_b_row + 8)].border = thin_border
+    ws["A" + str(section_b_row + 8)].alignment = left_alignment
     ws["A" + str(section_b_row + 9)].value = "Accounts payable"
     ws["A" + str(section_b_row + 9)].border = thin_border
+    ws["A" + str(section_b_row + 9)].alignment = left_alignment
     ws["A" + str(section_b_row + 10)].value = "Raw Material and Components"
     ws["A" + str(section_b_row + 10)].border = thin_border
+    ws["A" + str(section_b_row + 10)].alignment = left_alignment
     ws["A" + str(section_b_row + 11)].value = "Work in Progress"
     ws["A" + str(section_b_row + 11)].border = thin_border
+    ws["A" + str(section_b_row + 11)].alignment = left_alignment
     ws["A" + str(section_b_row + 12)].value = "Finished Goods"
     ws["A" + str(section_b_row + 12)].border = thin_border
+    ws["A" + str(section_b_row + 12)].alignment = left_alignment
     ws["A" + str(section_b_row + 13)].value = "Inventory"
     ws["A" + str(section_b_row + 13)].border = thin_border
+    ws["A" + str(section_b_row + 13)].alignment = left_alignment
     ws["A" + str(section_b_row + 14)].value = "Net working capital"
     ws["A" + str(section_b_row + 14)].border = thin_border
+    ws["A" + str(section_b_row + 14)].alignment = left_alignment
 
-    # Align and add borders to cells
-    for row in ws.iter_rows():
-        for cell in row:
-            cell.alignment = Alignment(horizontal='center', vertical='center')
-            cell.border = thin_border
+    # Additional cell styling as per user request
+    special_cells = ["B26", "C26", "B45", "C45", "B47", "C47", "B49", "C49", 
+                     "B50", "C50", "B52", "C52", "B63", "C63", "B79", "C79", 
+                     "B84", "C84", "B88", "C88", "B89", "C89"]
 
+    for cell in special_cells:
+        ws[cell].border = thick_border
+        ws[cell].fill = light_grey_fill
+        ws[cell].alignment = center_alignment
+
+    # Save the workbook
     folder_name = os.path.basename(folder)
     excel_path = os.path.join(excel_folder, f"{folder_name}.xlsx")
-    print("\nsaved\n")
     new_wb.save(excel_path)
     return excel_path
 
@@ -388,6 +458,7 @@ def fill_values(check_excel, fill_excel):
     # Function to set value in fill_sheet
     def set_value(cell, value):
         fill_sheet[cell].value = value
+        fill_sheet[cell].alignment = Alignment(horizontal='right')  # Align text to the right
         print(f"Set value '{value}' in cell '{cell}'")  # Debugging statement
 
     # Clean up the extracted values
@@ -500,20 +571,24 @@ def fill_values(check_excel, fill_excel):
         set_value("C77", clean_value(other[1]))
 
     if 'Other current financial assets others1' in extracted_values:
-        fincaiacl = extracted_values['Other current financial assets others']
+        fincaiacl = extracted_values['Other current financial assets others1']
         set_value("B76", clean_value(fincaiacl[0]))
         set_value("C76", clean_value(fincaiacl[1]))
 
     if 'Other current financial assets others2' in extracted_values:
-        tree = extracted_values['Other current financial assets others']
+        tree = extracted_values['Other current financial assets others2']
         set_value("B82", clean_value(tree[0]))
         set_value("C82", clean_value(tree[1]))
 
     if 'Other current financial assets others3' in extracted_values:
-        tree = extracted_values['Other current financial assets others']
+        tree = extracted_values['Other current financial assets others3']
         set_value("B83", clean_value(tree[0]))
         set_value("C83", clean_value(tree[1]))
 
+    if 'Total other non-operating income' in extracted_values:
+        value = extracted_values["Total other non-operating income"]
+        set_value("B25", clean_value(value[0]))
+        set_value("C25", clean_value(value[1]))
 
     # Set summed values
     if (fill_sheet["B12"].value is None and fill_sheet["C12"].value is None) or (fill_sheet["B12"].value == 0 and fill_sheet["C12"].value == 0):
@@ -524,16 +599,17 @@ def fill_values(check_excel, fill_excel):
     filling.save(filename=fill_excel)
 
 
-
-def update_values(fill_excel,result,folder_path):
+def update_values(fill_excel, result, folder_path):
     filling = load_workbook(filename=fill_excel)
     folder_name = os.path.basename(folder_path)
+
     for i in range(len(result)):
         new_name = folder_name + ".pdf"
-        print(new_name," ",result[i][0])
+        print(new_name, result[i][0])
         if new_name == result[i][0]:
             arr = result.pop(i)
             break
+
     fill_sheet = filling.active
 
     def get_value(cell):
@@ -541,37 +617,77 @@ def update_values(fill_excel,result,folder_path):
 
     def set_value(cell, value):
         fill_sheet[cell].value = value
+        fill_sheet[cell].alignment = Alignment(horizontal='right')  # Align text to the right
         print(f"Set value '{value}' in cell '{cell}'")
 
-    set_value("B9",(get_value("B9"))* arr[2])
-    set_value("C9",(get_value("C9"))* arr[2])
-    set_value("B11",(get_value("B11"))* arr[2])
-    set_value("C11",(get_value("C11"))* arr[2])
-    set_value("B19",(get_value("C19"))* arr[2])
-    set_value("C19",(get_value("C19"))* arr[2])
-    set_value("B20",(get_value("B20"))* arr[2])
-    set_value("C20",(get_value("C20"))* arr[2])
-    set_value("B34",(get_value("B34"))* arr[2])
-    set_value("C34",(get_value("C34"))* arr[2])
-    set_value("B66",(get_value("B66"))* arr[2])
-    set_value("C66",(get_value("C66"))* arr[2])
+    set_value("B9", get_value("B9") * arr[2])
+    set_value("C9", get_value("C9") * arr[2])
+    set_value("B11", get_value("B11") * arr[2])
+    set_value("C11", get_value("C11") * arr[2])
+    set_value("B19", get_value("C19") * arr[2])
+    set_value("C19", get_value("C19") * arr[2])
+    set_value("B20", get_value("B20") * arr[2])
+    set_value("C20", get_value("C20") * arr[2])
+    set_value("B34", get_value("B34") * arr[2])
+    set_value("C34", get_value("C34") * arr[2])
+    set_value("B66", get_value("B66") * arr[2])
+    set_value("C66", get_value("C66") * arr[2])
 
-    set_value("B12",(get_value("B12"))* arr[2])
-    set_value("C12",(get_value("C12"))*arr[2])
+    set_value("B12", get_value("B12") * arr[2])
+    set_value("C12", get_value("C12") * arr[2])
 
-    set_value("B1",arr[1])
+    set_value("B1", arr[1])
+
     other_cells = [
         "B10", "C10", "B22", "C22", "B23", "C23", "B28", "C28", 
         "B35", "C35", "B36", "C36", "B37", "C37", "B38", "C38", 
         "B39", "C39", "B41", "C41", "B56", "C56", "B75", "C75", 
         "B80", "C80", "B76", "C76", "B77", "C77", "B82", "C82", 
-        "B83", "C83"
+        "B83", "C83", "B25", "C25"
     ]
     
     for cell in other_cells:
+        print(cell, get_value(cell))
         original_value = get_value(cell)
-        if original_value is not None:  # Ensure the cell is not empty
+        if original_value is not None:
             set_value(cell, original_value * arr[2])
+
+    def get_value_with_default(cell, default=0):
+        value = get_value(cell)
+        return value if value is not None else default
+
+    set_value("B26", get_value_with_default("B12") - (get_value_with_default("B14") + get_value_with_default("B15") + get_value_with_default("B16") + get_value_with_default("B18") + get_value_with_default("B19") + get_value_with_default("B20") + get_value_with_default("B21") + get_value_with_default("B22") + get_value_with_default("B23") + get_value_with_default("B24") + get_value_with_default("B25")))
+    set_value("C26", get_value_with_default("C12") - (get_value_with_default("C14") + get_value_with_default("C15") + get_value_with_default("C16") + get_value_with_default("C18") + get_value_with_default("C19") + get_value_with_default("C20") + get_value_with_default("C21") + get_value_with_default("C22") + get_value_with_default("C23") + get_value_with_default("C24") + get_value_with_default("C25")))
+
+    set_value("B45", (get_value_with_default("B28") + get_value_with_default("B35")) - (get_value_with_default("B30") + get_value_with_default("B31") + get_value_with_default("B32") + get_value_with_default("B34") + get_value_with_default("B36") + get_value_with_default("B37") + get_value_with_default("B38") + get_value_with_default("B39") + get_value_with_default("B40") + get_value_with_default("B41") + get_value_with_default("B42") + get_value_with_default("B43") + get_value_with_default("B44")))
+    set_value("C45", (get_value_with_default("C28") + get_value_with_default("C35")) - (get_value_with_default("C30") + get_value_with_default("C31") + get_value_with_default("C32") + get_value_with_default("C34") + get_value_with_default("C36") + get_value_with_default("C37") + get_value_with_default("C38") + get_value_with_default("C39") + get_value_with_default("C40") + get_value_with_default("C41") + get_value_with_default("C42") + get_value_with_default("C43") + get_value_with_default("C44")))
+
+    set_value("B47", get_value_with_default("B45") - get_value_with_default("B46"))
+    set_value("C47", get_value_with_default("C45") - get_value_with_default("C46"))
+
+    set_value("B49", get_value_with_default("B12") - get_value_with_default("B28"))
+    set_value("C49", get_value_with_default("C12") - get_value_with_default("C28"))
+
+    set_value("B50", get_value_with_default("B26") - get_value_with_default("B47"))
+    set_value("C50", get_value_with_default("C26") - get_value_with_default("C47"))
+
+    set_value("B52", get_value_with_default("B50") / get_value_with_default("B47") * 100)
+    set_value("C52", get_value_with_default("C50") / get_value_with_default("C47") * 100)
+
+    set_value("B63", get_value_with_default("B52") + get_value_with_default("B62"))
+    set_value("C63", get_value_with_default("C52") + get_value_with_default("C62"))
+
+    set_value("B79", get_value_with_default("B75") + get_value_with_default("B76") - get_value_with_default("B77") - get_value_with_default("B78"))
+    set_value("C79", get_value_with_default("C75") + get_value_with_default("C76") - get_value_with_default("C77") - get_value_with_default("C78"))
+
+    set_value("B84", get_value_with_default("B80") - get_value_with_default("B81") - get_value_with_default("B82") - get_value_with_default("B83"))
+    set_value("C84", get_value_with_default("C80") - get_value_with_default("C81") - get_value_with_default("C82") - get_value_with_default("C83"))
+
+    set_value("B88", get_value_with_default("B85") + get_value_with_default("B87") + get_value_with_default("B86"))
+    set_value("C88", get_value_with_default("C85") + get_value_with_default("C87") + get_value_with_default("C86"))
+
+    set_value("B89", get_value_with_default("B79") + get_value_with_default("B88") - get_value_with_default("B84"))
+    set_value("C89", get_value_with_default("C79") + get_value_with_default("C88") - get_value_with_default("C84"))
 
     filling.save(filename=fill_excel)
 
@@ -580,14 +696,14 @@ result = [['Name.pdf', 'ECLERX', 1000000]]
 fill_values('/home/geetansh/Desktop/Complete_Project/FinDetector/output_path/XBRL_financial_statements_duly_authenticated_as_per_section_134_including_Board/500100NotesSubclassificationand.xlsx', 
             'financial_template_stylish.xlsx', result)
 '''
-
 def combine_excel_files(input_dir, output_file):
     try:
         output_path = os.path.join(input_dir, output_file)
         
         with xlsxwriter.Workbook(output_path, {'nan_inf_to_errors': True}) as final_workbook:
-            header_format = final_workbook.add_format({'bold': True, 'border': 1, 'bg_color': '#D3D3D3'})
+            header_format = final_workbook.add_format({'bold': True, 'border': 1})
             data_format = final_workbook.add_format({'border': 1})
+            title_format = final_workbook.add_format({'bold': True, 'border': 1, 'align': 'center'})
 
             for subfolder in os.listdir(input_dir):
                 subfolder_path = os.path.join(input_dir, subfolder)
@@ -598,6 +714,7 @@ def combine_excel_files(input_dir, output_file):
                     # Create a new sheet for each subfolder
                     sheet_name = re.sub(r'[\W_]+', '', subfolder)[:31]  # Clean sheet name and truncate to 31 chars
                     final_worksheet = final_workbook.add_worksheet(sheet_name)
+                    final_worksheet.set_column('A:Z', 50)  # Set column width
                     
                     for file_name in os.listdir(subfolder_path):
                         if file_name.endswith('.xlsx'):
@@ -609,14 +726,12 @@ def combine_excel_files(input_dir, output_file):
                             cleaned_file_name = re.sub(r'\.xlsx$', '', cleaned_file_name)
                             
                             # Write the cleaned name of the Excel file as a title for the table
-                            final_worksheet.write(row_idx, 0, cleaned_file_name)
-                            title_row = row_idx
+                            final_worksheet.merge_range(row_idx, 0, row_idx, len(df.columns) - 1, cleaned_file_name, title_format)
                             row_idx += 1
                             
                             # Write the header of the table with bold format and borders
                             for col_num, value in enumerate(df.columns.values):
                                 final_worksheet.write(row_idx, col_num, value, header_format)
-                            header_row = row_idx
                             row_idx += 1
                             
                             # Write the data rows with borders
@@ -629,18 +744,18 @@ def combine_excel_files(input_dir, output_file):
                                 row_idx += 1
                             
                             # Group the rows and name the combined table "margin template"
-                            final_worksheet.set_row(title_row, None, None, {'collapsed': True})
-                            final_worksheet.set_row(header_row, None, None, {'level': 1, 'hidden': True})
-                            for r in range(header_row + 1, row_idx):
+                            final_worksheet.set_row(row_idx - len(df) - 1, None, None, {'collapsed': True})
+                            final_worksheet.set_row(row_idx - len(df), None, None, {'level': 1, 'hidden': True})
+                            for r in range(row_idx - len(df) + 1, row_idx):
                                 final_worksheet.set_row(r, None, None, {'level': 1, 'hidden': True})
                             
                             # Set a named range for the combined table
-                            final_workbook.define_name('margin_template', f'{sheet_name}!$A${title_row+1}:$A${row_idx}')
+                            final_workbook.define_name('margin_template', f'{sheet_name}!$A${row_idx - len(df) - 1}:$A${row_idx}')
                             
                             row_idx += 1
                     
                     # Add an empty group named "calculated data" at the end
-                    final_worksheet.write(row_idx, 0, 'Calculated Data')
+                    final_worksheet.merge_range(row_idx, 0, row_idx, len(df.columns) - 1, 'Calculated Data', title_format)
                     final_worksheet.set_row(row_idx, None, None, {'collapsed': True})
                     row_idx += 1
 

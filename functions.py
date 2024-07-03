@@ -7,7 +7,7 @@ import glob
 import zipfile
 import pandas as pd
 import re
-from openpyxl.styles import Font
+from openpyxl.styles import Font,Border,Alignment,Side,PatternFill
 from openpyxl import load_workbook,Workbook
 from openpyxl.utils.dataframe import dataframe_to_rows
 from openpyxl.worksheet.table import Table, TableStyleInfo
@@ -134,6 +134,20 @@ def append_data_to_excel(original_excel_path, excel_path):
         # Load existing workbook and sheets
         existing_sheets = pd.read_excel(original_excel_path, sheet_name=None)
         workbook = load_workbook(original_excel_path)
+
+        # Define styles
+        bold_font = Font(bold=True)
+        center_alignment = Alignment(horizontal='center', vertical='center')
+        left_alignment = Alignment(horizontal='left', vertical='center')
+        thin_border = Border(left=Side(style='thin'), 
+                             right=Side(style='thin'), 
+                             top=Side(style='thin'), 
+                             bottom=Side(style='thin'))
+        thick_border = Border(left=Side(style='thick'), 
+                              right=Side(style='thick'), 
+                              top=Side(style='thick'), 
+                              bottom=Side(style='thick'))
+
         # Process each sheet and append new data
         for sheet_name, df in existing_sheets.items():
             print(f"Processing sheet: {sheet_name}")
@@ -151,12 +165,22 @@ def append_data_to_excel(original_excel_path, excel_path):
 
                         # Insert the new group label
                         margien_sheet = f"{shortened_name}_new_group"
-                        worksheet.cell(row=startrow, column=1, value=margien_sheet).font = Font(bold=True)
+                        cell = worksheet.cell(row=startrow, column=1, value=margien_sheet)
+                        cell.font = bold_font
+                        cell.alignment = center_alignment
+                        cell.border = thick_border
+                        worksheet.column_dimensions['A'].width = 50
+                        worksheet.column_dimensions['B'].width = 50
+                        worksheet.column_dimensions['C'].width = 50
+                        worksheet.column_dimensions['D'].width = 50
+                        worksheet.column_dimensions['E'].width = 50
 
                         # Write new data
                         for r_idx, row in enumerate(dataframe_to_rows(shortened_df, index=False, header=True), start=startrow + 1):
                             for c_idx, value in enumerate(row, 1):
-                                worksheet.cell(row=r_idx, column=c_idx, value=value)
+                                cell = worksheet.cell(row=r_idx, column=c_idx, value=value)
+                                cell.border = thin_border
+                                cell.alignment = center_alignment if r_idx == startrow + 1 else left_alignment
 
                         # Apply grouping and set named range
                         title_row = startrow
