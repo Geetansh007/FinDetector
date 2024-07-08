@@ -445,6 +445,7 @@ def fill_values(check_excel, fill_excel):
                     # Find a new unique header name
                     index = 1
                     new_header = f"{header}{index}"
+                    print(new_header)
                     while new_header in extracted_values:
                         index += 1
                         new_header = f"{header}{index}"
