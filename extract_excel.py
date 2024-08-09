@@ -672,8 +672,8 @@ def update_values(fill_excel, result, folder_path):
     set_value("B50", get_value_with_default("B26") - get_value_with_default("B47"))
     set_value("C50", get_value_with_default("C26") - get_value_with_default("C47"))
 
-    set_value("B52", get_value_with_default("B50") / get_value_with_default("B47") * 100)
-    set_value("C52", get_value_with_default("C50") / get_value_with_default("C47") * 100)
+    set_value("B52", get_value_with_default("B50") / get_value_with_default("B47") * 100  )
+    set_value("C52", get_value_with_default("C50") / get_value_with_default("C47") * 100 )
 
     set_value("B63", get_value_with_default("B52") + get_value_with_default("B62"))
     set_value("C63", get_value_with_default("C52") + get_value_with_default("C62"))

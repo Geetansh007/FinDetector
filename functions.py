@@ -15,11 +15,11 @@ from openpyxl.worksheet.table import Table, TableStyleInfo
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() == 'pdf'
 
-def clear_directories(upload_folder, output_base_folder, excel_folder):
+def clear_directories(uploads, output_base_folder, excel_folder):
     """
     Remove specified directories to ensure a fresh start for each upload process.
     """
-    for folder in [upload_folder, output_base_folder, excel_folder]:
+    for folder in [uploads, output_base_folder, excel_folder]:
         if os.path.exists(folder):
             shutil.rmtree(folder)
             print(f"Cleared existing directory: {folder}")
@@ -72,7 +72,6 @@ def process_uploaded_pdfs(upload_folder, output_base_folder):
             results.append((filename, company_name, monetary_unit_value))
             print("\n", results)
 
-    shutil.rmtree(upload_folder)
 
     return output_base_folder, results
 
