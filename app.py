@@ -1,8 +1,10 @@
 from flask import Flask, request, send_file,jsonify
 from functions import clear_directories, save_uploaded_files, process_uploaded_pdfs, load_pdf_excel, download_folder,table_display,append_data_to_excel,excel_to_json
 from extract_excel import combine_excel_files
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route('/uploads', methods=['POST', 'GET'])
 def upload():
