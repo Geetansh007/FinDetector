@@ -1,5 +1,5 @@
 from flask import Flask, request, send_file,jsonify
-from functions import clear_directories, save_uploaded_files, process_uploaded_pdfs, load_pdf_excel, download_folder,table_display,append_data_to_excel
+from functions import clear_directories, save_uploaded_files, process_uploaded_pdfs, load_pdf_excel, download_folder,table_display,append_data_to_excel,excel_to_json
 from extract_excel import combine_excel_files
 
 app = Flask(__name__)
@@ -17,8 +17,8 @@ def upload():
             dataframe = table_display('Excel_folder')
             combine_excel_files('output_path', 'final_combined_output.xlsx')
             append_data_to_excel('output_path/final_combined_output.xlsx','Excel_folder')
-            tables_json = {name: df.to_dict(orient='records') for name, df in dataframe.items()}
-            return jsonify(tables_json), 200
+            tables_json = excel_to_json('Excel_folder')
+            return tables_json, 200
         elif request.method == "GET":
             return "Upload endpoint - Use POST to upload files.", 200
     except Exception as e:

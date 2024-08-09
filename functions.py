@@ -11,6 +11,7 @@ from openpyxl.styles import Font,Border,Alignment,Side,PatternFill
 from openpyxl import load_workbook,Workbook
 from openpyxl.utils.dataframe import dataframe_to_rows
 from openpyxl.worksheet.table import Table, TableStyleInfo
+import json
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() == 'pdf'
@@ -201,3 +202,35 @@ def append_data_to_excel(original_excel_path, excel_path):
 
     except Exception as e:
         print(f"Error in append_data_to_excel: {e}")
+
+def excel_to_json(folder_path, num_rows=93):
+    all_data_dict = {}
+
+    for file_name in os.listdir(folder_path):
+        if file_name.endswith('.xlsx') or file_name.endswith('.xls'):
+            file_path = os.path.join(folder_path, file_name)
+            file_data_dict = {}
+
+            xls = pd.ExcelFile(file_path)
+
+            for sheet_name in xls.sheet_names:
+                df = pd.read_excel(file_path, sheet_name=sheet_name)
+                sheet_data_dict = {}
+
+                for i in range(min(num_rows, len(df))):
+                    key = df.iloc[i, 0]
+                    values = df.iloc[i, 1:5].tolist()
+                    values = [0 if pd.isna(value) or value == "Naan" else value for value in values]
+                    sheet_data_dict[key] = values
+
+                file_data_dict[sheet_name] = sheet_data_dict
+
+            all_data_dict[os.path.splitext(file_name)[0]] = file_data_dict
+
+    response = {
+        "status": "success",
+        "message": "Data successfully converted to JSON.",
+        "data": all_data_dict
+    }
+
+    return json.dumps(response, indent=4)
